@@ -26,9 +26,9 @@ export default function DisplayRegions() {
   function SortPokemon() {
     region.pokemon_species.map((species, index) => {
       return (
-        <>
+        <div key={index}>
           <p>{species.name}</p>
-        </>
+        </div>
       )
     })
   }
