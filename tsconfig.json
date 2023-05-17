@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "module": "ES6",
+    "target": "ES5",
+    "moduleResolution": "node",
+    "outDir": "./dist/",
+    "lib": ["dom"],
+    "strict": true,
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+    "checkJs": false,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "."
+  },
+  "exclude": ["node_modules"],
+  "include": ["src/**/*"]
+}
