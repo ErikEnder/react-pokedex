@@ -1,43 +1,40 @@
 import { useEffect } from "react";
-import { useRecoilState } from "recoil"
+import { useRecoilState } from "recoil";
 import { kantoAtom } from "../state/region-state";
 import axios from "axios";
 import React from "react";
 
 // Type for Pokemon array to be used for sorting
 type Pokemon = {
-  pokeName: string,
-  url: string,
-  id: number
-}
+  pokeName: string;
+  url: string;
+  id: number;
+};
 
 // Type for Region state
 type Region = {
-  abilities: [],
-  id: number,
+  id: number;
   main_region: {
-    name: string,
-    url: string
-  },
-  moves: [{}],
-  name: string,
-  names: [{}],
-  pokemon_species: [{
-    name: string,
-    url: string
-  }],
-  types: [{}],
-  version_groups: [{}]
-}
+    name: string;
+    url: string;
+  };
+  name: string;
+  pokemon_species: [
+    {
+      name: string;
+      url: string;
+    }
+  ];
+};
 
 function getPokemonId(url: string) {
   const id = url.split(/\//)[6];
-  return Number(id)
+  return Number(id);
 }
 
 export default function KantoDisplay() {
   const [kanto, setKanto] = useRecoilState<Region | undefined>(kantoAtom);
-  const kantoPokes: Pokemon[] = []
+  const kantoPokes: Pokemon[] = [];
 
   useEffect(() => {
     const fetchRegion = async () => {
@@ -59,29 +56,29 @@ export default function KantoDisplay() {
   const SortPokemon = () => {
     // eslint-disable-next-line array-callback-return
     kanto?.pokemon_species?.map((species) => {
-      const pokeId = getPokemonId(species.url)
+      const pokeId = getPokemonId(species.url);
       const pokemonDefined: Pokemon = {
         pokeName: species.name,
         url: species.url,
-        id: pokeId
-      }
-      kantoPokes.push(pokemonDefined)
-    })
+        id: pokeId,
+      };
+      kantoPokes.push(pokemonDefined);
+    });
     kantoPokes.sort((a, b) => {
-      const idA = a.id
-      const idB = b.id
-      return idA - idB
-    })
+      const idA = a.id;
+      const idB = b.id;
+      return idA - idB;
+    });
   };
 
   const DisplayPokemon = () =>
-  kantoPokes.map((species, index) => {
-    return (
-      <div key={index}>
-        <a href={species.url}>{species.pokeName}</a>
-      </div>
-    );
-  });
+    kantoPokes.map((species, index) => {
+      return (
+        <div key={index}>
+          <a href={species.url}>{species.pokeName}</a>
+        </div>
+      );
+    });
 
   return (
     <>

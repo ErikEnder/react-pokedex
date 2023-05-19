@@ -1,29 +1,26 @@
-import { atom } from "recoil"
+import { atom } from "recoil";
 
 type Region = {
-  abilities: [],
-  id: number,
+  id: number;
   main_region: {
-    name: string,
-    url: string
-  },
-  moves: [{}],
-  name: string,
-  names: [{}],
-  pokemon_species: [{
-    name: string,
-    url: string
-  }],
-  types: [{}],
-  version_groups: [{}]
-}
+    name: string;
+    url: string;
+  };
+  name: string;
+  pokemon_species: [
+    {
+      name: string;
+      url: string;
+    }
+  ];
+};
 
 export const kantoAtom = atom<Region | undefined>({
-  key: 'kanto-state',
-  default: undefined
-})
+  key: "kanto-state",
+  default: undefined,
+});
 
 export const johtoAtom = atom<Region | undefined>({
-  key: 'johto-state',
-  default: undefined
-})
+  key: "johto-state",
+  default: undefined,
+});
