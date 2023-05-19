@@ -1,10 +1,11 @@
+import React from "react";
+import axios from "axios";
+
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { johtoAtom } from "../state/region-state";
-import { Region } from "types";
-import axios from "axios";
-import React from "react";
 import { sortPokemon } from "src/helpers/helpers";
+import { Region } from "types";
 
 export default function JohtoDisplay() {
   const [johto, setJohto] = useRecoilState<Region | undefined>(johtoAtom);
