@@ -42,7 +42,6 @@ export default function KantoDisplay() {
         const response = await axios.get(
           "https://pokeapi.co/api/v2/generation/1/"
         );
-        console.log(response.data);
         setKanto(response.data);
       } catch (error) {
         console.log(error);

@@ -44,7 +44,6 @@ export default function JohtoDisplay() {
         const response = await axios.get(
           "https://pokeapi.co/api/v2/generation/2/"
         );
-        console.log(response.data);
         setJohto(response.data);
       } catch (error) {
         console.log(error);
