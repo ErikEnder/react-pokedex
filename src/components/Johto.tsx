@@ -1,25 +1,10 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { johtoAtom } from "../state/region-state";
+import { Region } from "types";
 import axios from "axios";
 import React from "react";
 import { sortPokemon } from "src/helpers/helpers";
-
-// Type for Region state
-type Region = {
-  id: number;
-  main_region: {
-    name: string;
-    url: string;
-  };
-  name: string;
-  pokemon_species: [
-    {
-      name: string;
-      url: string;
-    }
-  ];
-};
 
 export default function JohtoDisplay() {
   const [johto, setJohto] = useRecoilState<Region | undefined>(johtoAtom);

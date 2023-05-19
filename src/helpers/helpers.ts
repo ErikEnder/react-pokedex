@@ -1,23 +1,4 @@
-type Pokemon = {
-  pokeName: string;
-  url: string;
-  id: number;
-};
-
-type Region = {
-  id: number;
-  main_region: {
-    name: string;
-    url: string;
-  };
-  name: string;
-  pokemon_species: [
-    {
-      name: string;
-      url: string;
-    }
-  ];
-};
+import { Region, Pokemon } from "types";
 
 export function getPokemonId(url: string) {
   const id = url.split(/\//)[6];
@@ -42,5 +23,5 @@ export function sortPokemon(region: Region | undefined) {
     return idA - idB;
   });
 
-  return sortedPokes
-};
+  return sortedPokes;
+}

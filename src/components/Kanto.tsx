@@ -2,24 +2,9 @@ import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { kantoAtom } from "../state/region-state";
 import { sortPokemon } from "src/helpers/helpers";
+import { Region } from "types";
 import axios from "axios";
 import React from "react";
-
-// Type for Region state
-type Region = {
-  id: number;
-  main_region: {
-    name: string;
-    url: string;
-  };
-  name: string;
-  pokemon_species: [
-    {
-      name: string;
-      url: string;
-    }
-  ];
-};
 
 export default function KantoDisplay() {
   const [kanto, setKanto] = useRecoilState<Region | undefined>(kantoAtom);

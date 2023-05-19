@@ -1,19 +1,5 @@
 import { atom } from "recoil";
-
-type Region = {
-  id: number;
-  main_region: {
-    name: string;
-    url: string;
-  };
-  name: string;
-  pokemon_species: [
-    {
-      name: string;
-      url: string;
-    }
-  ];
-};
+import { Region } from "types";
 
 export const kantoAtom = atom<Region | undefined>({
   key: "kanto-state",
