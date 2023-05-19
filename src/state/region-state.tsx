@@ -18,7 +18,12 @@ type Region = {
   version_groups: [{}]
 }
 
-export const regionAtom = atom<Region | undefined>({
-  key: 'regionState',
+export const kantoAtom = atom<Region | undefined>({
+  key: 'kanto-state',
+  default: undefined
+})
+
+export const johtoAtom = atom<Region | undefined>({
+  key: 'johto-state',
   default: undefined
 })

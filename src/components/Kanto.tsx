@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil"
-import { regionAtom } from "../state/region-state";
+import { kantoAtom } from "../state/region-state";
 import axios from "axios";
 import React from "react";
 
 // Type for Pokemon array to be used for sorting
 type Pokemon = {
-  name: string,
+  pokeName: string,
   url: string,
   id: number
 }
@@ -30,9 +30,14 @@ type Region = {
   version_groups: [{}]
 }
 
-export default function Regions() {
-  console.log("In Regions")
-  const [region, setRegion] = useRecoilState<Region | undefined>(regionAtom);
+function getPokemonId(url: string) {
+  const id = url.split(/\//)[6];
+  return Number(id)
+}
+
+export default function KantoDisplay() {
+  const [kanto, setKanto] = useRecoilState<Region | undefined>(kantoAtom);
+  const kantoPokes: Pokemon[] = []
 
   useEffect(() => {
     const fetchRegion = async () => {
@@ -41,7 +46,7 @@ export default function Regions() {
           "https://pokeapi.co/api/v2/generation/1/"
         );
         console.log(response.data);
-        setRegion(response.data);
+        setKanto(response.data);
       } catch (error) {
         console.log(error);
         return [];
@@ -51,29 +56,37 @@ export default function Regions() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /** TODO 
-   * map Pokemon to Array [{name: name, url: url, id: id}]
-   * Parse ID from Pokemon URL and assign to Pokemon
-   * Sort by ID, then display properly
-   * 
-   */
-  // const SortPokemon = () =>
-  //   region?.pokemon_species?.map((species, index) => {
-      
-  //   });
+  const SortPokemon = () => {
+    // eslint-disable-next-line array-callback-return
+    kanto?.pokemon_species?.map((species) => {
+      const pokeId = getPokemonId(species.url)
+      const pokemonDefined: Pokemon = {
+        pokeName: species.name,
+        url: species.url,
+        id: pokeId
+      }
+      kantoPokes.push(pokemonDefined)
+    })
+    kantoPokes.sort((a, b) => {
+      const idA = a.id
+      const idB = b.id
+      return idA - idB
+    })
+  };
 
   const DisplayPokemon = () =>
-  region?.pokemon_species?.map((species, index) => {
+  kantoPokes.map((species, index) => {
     return (
       <div key={index}>
-        <a href={species.url}>{species.name}</a>
+        <a href={species.url}>{species.pokeName}</a>
       </div>
     );
   });
 
   return (
     <>
-      <p>{region?.main_region?.name}</p>
+      <p>{kanto?.main_region?.name}</p>
+      {SortPokemon()}
       {DisplayPokemon()}
     </>
   );
