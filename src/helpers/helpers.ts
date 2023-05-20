@@ -2,6 +2,7 @@ import { Region, Pokemon } from "types";
 
 // Function for parsing ID out of API URL
 function getPokemonId(url: string) {
+  // Splitting on the 6th instance of '/' as the URL should be nearly identical for every call
   const id = url.split(/\//)[6];
   return Number(id);
 }
@@ -46,8 +47,8 @@ function capitalizePokeName(name: string) {
 // Function for capitalizing the first letter after a hyphen in a Pokemon name
 // Purely cosmetic
 function capitalizeAfterHyphen(name: string) {
-  const preHyphenSplit = name.split("-")[0]
-  const postHyphenSplit = name.split("-")[1]
+  const preHyphenSplit = name.split("-")[0] // Getting name before hyphen
+  const postHyphenSplit = name.split("-")[1] // Getting name after hyphen
 
   const postHyphenFull = postHyphenSplit.slice(0, 1).toUpperCase() + postHyphenSplit.slice(1)
 
