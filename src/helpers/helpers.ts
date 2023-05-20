@@ -1,33 +1,55 @@
 import { Region, Pokemon } from "types";
 
+// Function for parsing ID out of API URL
 function getPokemonId(url: string) {
   const id = url.split(/\//)[6];
   return Number(id);
 }
 
+/**
+ * Sorts Pokemon per Region by ID number
+ * ID number is parsed out of API URL as they are directly correlated to in-game Pokedex ID
+ * Region API does not automatically have them in order, 
+ * leading to awkward display unless sorted
+ *  
+*/ 
 export function sortPokemon(region: Region | undefined) {
   const sortedPokes: Pokemon[] = [];
   // eslint-disable-next-line array-callback-return
   region?.pokemon_species?.map((species) => {
-    const pokeId = getPokemonId(species.url);
     const pokemonDefined: Pokemon = {
       pokeName: capitalizePokeName(species.name),
       url: species.url,
-      id: pokeId,
+      id: getPokemonId(species.url),
     };
     sortedPokes.push(pokemonDefined);
   });
   sortedPokes.sort((a, b) => {
-    const idA = a.id;
-    const idB = b.id;
-    return idA - idB;
+    return a.id - b.id;
   });
 
   return sortedPokes;
 }
 
+// Function for capitalizing the first letter of a Pokemon's name
+// Purely cosmetic
 function capitalizePokeName(name: string) {
-  const firstLetter = name.slice(0, 1)
-  const afterFirst = name.slice(1)
-  return firstLetter.toUpperCase() + afterFirst
+  const capitalized = name.slice(0, 1).toUpperCase() + name.slice(1)
+  if ( capitalized.includes("-") ) {
+    return capitalizeAfterHyphen(capitalized)
+  }
+  else {
+    return capitalized
+  }
+}
+
+// Function for capitalizing the first letter after a hyphen in a Pokemon name
+// Purely cosmetic
+function capitalizeAfterHyphen(name: string) {
+  const preHyphenSplit = name.split("-")[0]
+  const postHyphenSplit = name.split("-")[1]
+
+  const postHyphenFull = postHyphenSplit.slice(0, 1).toUpperCase() + postHyphenSplit.slice(1)
+
+  return preHyphenSplit + '-' + postHyphenFull
 }
