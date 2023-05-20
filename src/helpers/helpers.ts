@@ -11,7 +11,10 @@ function getPokemonId(url: string) {
  * Sorts Pokemon per Region by ID number
  * ID number is parsed out of API URL as they are directly correlated to in-game Pokedex ID
  * Region API does not automatically have them in order, 
- * leading to awkward display unless sorted
+ * leading to awkward display unless sorted.
+ * 
+ * Note: Could use Pokedex API call directly to avoid using this,
+ * but leaving it for educational purposes
  *  
 */ 
 export function sortPokemon(region: Region | undefined) {
