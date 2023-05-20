@@ -1,6 +1,6 @@
 import { Region, Pokemon } from "types";
 
-export function getPokemonId(url: string) {
+function getPokemonId(url: string) {
   const id = url.split(/\//)[6];
   return Number(id);
 }
@@ -11,7 +11,7 @@ export function sortPokemon(region: Region | undefined) {
   region?.pokemon_species?.map((species) => {
     const pokeId = getPokemonId(species.url);
     const pokemonDefined: Pokemon = {
-      pokeName: species.name,
+      pokeName: capitalizePokeName(species.name),
       url: species.url,
       id: pokeId,
     };
@@ -24,4 +24,10 @@ export function sortPokemon(region: Region | undefined) {
   });
 
   return sortedPokes;
+}
+
+function capitalizePokeName(name: string) {
+  const firstLetter = name.slice(0, 1)
+  const afterFirst = name.slice(1)
+  return firstLetter.toUpperCase() + afterFirst
 }
