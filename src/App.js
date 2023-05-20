@@ -1,5 +1,7 @@
 import { RecoilRoot } from 'recoil';
 import { Suspense } from 'react';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 
 import KantoDisplay from './components/Kanto'
 import JohtoDisplay from './components/Johto';
@@ -16,15 +18,65 @@ function App() {
   return (
     <Suspense fallback={<div>loading...</div>}>
       <RecoilRoot>
-        <KantoDisplay />
-        <JohtoDisplay />
-        <HoennDisplay />
-        <SinnohDisplay />
-        <UnovaDisplay />
-        <KalosDisplay />
-        <AlolaDisplay />
-        <GalarDisplay />
-        <PaldeaDisplay />
+        <Box sx={{ flexGrow: 1, justifyContent: 'space-evenly', display: 'inline-flex', alignContent: 'center', width: '100%' }}>
+          {/* <Grid
+            container
+            spacing={2}
+            direction="row"
+            > */}
+            <Box sx={{ width: '20%'}}>
+              <Grid
+                container 
+                spacing={2}
+                direction="column"
+              >
+                <Grid item xs={4}>
+                  <KantoDisplay />
+                </Grid>
+                <Grid item xs={4}>
+                  <JohtoDisplay />
+                </Grid>
+                <Grid item xs={4}>
+                  <HoennDisplay />
+                </Grid>
+              </Grid>
+            </Box>
+            <Box sx={{ width: '20%'}}>
+              <Grid
+                container 
+                spacing={2}
+                direction="column"
+              >
+                <Grid item xs={4}>
+                  <SinnohDisplay />
+                </Grid>
+                <Grid item xs={4}>
+                  <UnovaDisplay />
+                </Grid>
+                <Grid item xs={4}>
+                  <KalosDisplay />
+                </Grid>
+              </Grid>
+            </Box>
+            <Box sx={{ width: '20%'}}>
+              <Grid
+                container 
+                spacing={2}
+                direction="column"
+              >
+                <Grid item xs={4}>
+                  <AlolaDisplay />
+                </Grid>
+                <Grid item xs={4}>
+                  <GalarDisplay />
+                </Grid>
+                <Grid item xs={4}>
+                  <PaldeaDisplay />
+                </Grid>    
+              </Grid>
+            </Box>
+          {/* </Grid> */}
+        </Box>
       </RecoilRoot>
     </Suspense>
   )

@@ -1,14 +1,17 @@
 import React from "react";
 import axios from "axios";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { paldeaAtom } from "../state/region-state";
 import { sortPokemon } from "src/helpers/helpers";
 import { Region } from "types";
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export default function PaldeaDisplay() {
   const [paldea, setPaldea] = useRecoilState<Region | undefined>(paldeaAtom);
+  const [expanded, setExpanded] = useState<string | false>(false);
 
   useEffect(() => {
     const fetchRegion = async () => {
@@ -26,6 +29,11 @@ export default function PaldeaDisplay() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleChange =
+  (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
   const DisplayPokemon = () =>
     sortPokemon(paldea).map((species, index) => {
       return (
@@ -37,8 +45,18 @@ export default function PaldeaDisplay() {
 
   return (
     <>
-      <p>{paldea?.main_region?.name}</p>
-      {DisplayPokemon()}
+      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1bh-content"
+          id="panel1bh-header"
+        >
+          <Typography sx={{ color: 'text.secondary' }}>Paldea Pokedex</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          {DisplayPokemon()}
+        </AccordionDetails>
+      </Accordion>
     </>
   );
 }
