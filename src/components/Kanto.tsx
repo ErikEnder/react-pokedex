@@ -2,12 +2,14 @@ import React from "react";
 import axios from "axios";
 
 import { useEffect, useState } from "react";
+// import { Redirect } from "react-router-dom"
 import { useRecoilState } from "recoil";
 import { kantoAtom } from "../state/region-state";
 import { sortPokemon } from "src/helpers/helpers";
 import { Region } from "types";
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Typography, Button } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import PokemonView from "./PokemonView";
 
 export default function KantoDisplay() {
   const [kanto, setKanto] = useRecoilState<Region | undefined>(kantoAtom);
@@ -34,10 +36,25 @@ export default function KantoDisplay() {
       setExpanded(isExpanded ? panel : false);
     };
 
+  // const handleViewer =
+  //   (id: number) => {
+  //     <Redirect to {{
+  //       pathname: <PokemonView />
+  //     }}
+  //   }
+  // }
+
   const DisplayPokemon = () =>
     sortPokemon(kanto).map((species, index) => {
       return (
         <div key={index}>
+          {/* <Typography>{species.pokeName}</Typography> */}
+          {/* <Button variant="outlined"
+            onClick={() => {
+              handleViewer(species.id)
+            }}>
+              View Pokemon
+            </Button> */}
           <a href={species.url}>{species.pokeName}</a>
         </div>
       );

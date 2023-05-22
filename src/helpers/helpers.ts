@@ -1,4 +1,4 @@
-import { Region, Pokemon } from "types";
+import { Region, PokemonStorage } from "types";
 
 // Function for parsing ID out of API URL
 function getPokemonId(url: string) {
@@ -18,10 +18,10 @@ function getPokemonId(url: string) {
  *  
 */ 
 export function sortPokemon(region: Region | undefined) {
-  const sortedPokes: Pokemon[] = [];
+  const sortedPokes: PokemonStorage[] = [];
   // eslint-disable-next-line array-callback-return
   region?.pokemon_species?.map((species) => {
-    const pokemonDefined: Pokemon = {
+    const pokemonDefined: PokemonStorage = {
       pokeName: capitalizePokeName(species.name),
       url: species.url,
       id: getPokemonId(species.url),
