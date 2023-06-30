@@ -2,15 +2,13 @@ import React from "react";
 import axios from "axios";
 
 import { useEffect, useState } from "react";
-// import { Redirect } from "react-router-dom"
 import { useRecoilState } from "recoil";
 import { kantoAtom } from "../state/region-state";
 import { sortPokemon } from "src/helpers/helpers";
 import { Region } from "types";
-import { Accordion, AccordionDetails, AccordionSummary, Typography, Button } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import PokemonView from "../pages/PokemonView";
 
 export default function KantoDisplay() {
   const [kanto, setKanto] = useRecoilState<Region | undefined>(kantoAtom);
@@ -43,13 +41,6 @@ export default function KantoDisplay() {
     sortPokemon(kanto).map((species, index) => {
       return (
         <div key={index}>
-          {/* <Typography>{species.pokeName}</Typography>
-          <Button variant="outlined"
-            onClick={() => {
-              handleViewer(species.id)
-            }}>
-              View Pokemon
-            </Button> */}
           <span>{species.id}. </span>
           <Link to="/pokemonview/" state={{ name: species.pokeName }}>
             {species.pokeName}
@@ -57,11 +48,6 @@ export default function KantoDisplay() {
         </div>
       );
     });
-
-    // const handleViewer = (id: number) => {
-    //   navigate(`/pokemonview/{id}`)
-    // }
-    
 
   return (
     <>
