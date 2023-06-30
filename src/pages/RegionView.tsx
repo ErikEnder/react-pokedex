@@ -1,14 +1,14 @@
 import { Box, Grid } from "@mui/material";
 import React from "react";
-import AlolaDisplay from "./Alola";
-import GalarDisplay from "./Galar";
-import HoennDisplay from "./Hoenn";
-import JohtoDisplay from "./Johto";
-import KalosDisplay from "./Kalos";
-import KantoDisplay from "./Kanto";
-import PaldeaDisplay from "./Paldea";
-import SinnohDisplay from "./Sinnoh";
-import UnovaDisplay from "./Unova";
+import AlolaDisplay from "../components/Alola";
+import GalarDisplay from "../components/Galar";
+import HoennDisplay from "../components/Hoenn";
+import JohtoDisplay from "../components/Johto";
+import KalosDisplay from "../components/Kalos";
+import KantoDisplay from "../components/Kanto";
+import PaldeaDisplay from "../components/Paldea";
+import SinnohDisplay from "../components/Sinnoh";
+import UnovaDisplay from "../components/Unova";
 
 export default function RegionView() {
 

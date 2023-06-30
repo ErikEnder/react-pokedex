@@ -20,7 +20,10 @@ export type PokemonStorage = {
 };
 
 export type PokemonDefinition = {
-  pokeName: string
+  species: {
+    name: string
+    url: string
+  }
   url: string
   id: number
   abilities: [{

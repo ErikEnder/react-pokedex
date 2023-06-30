@@ -8,8 +8,9 @@ import { kantoAtom } from "../state/region-state";
 import { sortPokemon } from "src/helpers/helpers";
 import { Region } from "types";
 import { Accordion, AccordionDetails, AccordionSummary, Typography, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import PokemonView from "./PokemonView";
+import PokemonView from "../pages/PokemonView";
 
 export default function KantoDisplay() {
   const [kanto, setKanto] = useRecoilState<Region | undefined>(kantoAtom);
@@ -36,29 +37,31 @@ export default function KantoDisplay() {
       setExpanded(isExpanded ? panel : false);
     };
 
-  // const handleViewer =
-  //   (id: number) => {
-  //     <Redirect to {{
-  //       pathname: <PokemonView />
-  //     }}
-  //   }
-  // }
+  
 
   const DisplayPokemon = () =>
     sortPokemon(kanto).map((species, index) => {
       return (
         <div key={index}>
-          {/* <Typography>{species.pokeName}</Typography> */}
-          {/* <Button variant="outlined"
+          {/* <Typography>{species.pokeName}</Typography>
+          <Button variant="outlined"
             onClick={() => {
               handleViewer(species.id)
             }}>
               View Pokemon
             </Button> */}
-          <a href={species.url}>{species.pokeName}</a>
+          <span>{species.id}. </span>
+          <Link to="/pokemonview/" state={{ name: species.pokeName }}>
+            {species.pokeName}
+          </Link>
         </div>
       );
     });
+
+    // const handleViewer = (id: number) => {
+    //   navigate(`/pokemonview/{id}`)
+    // }
+    
 
   return (
     <>
