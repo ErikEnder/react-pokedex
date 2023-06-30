@@ -1,6 +1,8 @@
 import { RecoilRoot } from 'recoil';
 import { Suspense } from 'react';
 
+import './styles.css';
+
 import RegionView from './components/RegionView';
 
 

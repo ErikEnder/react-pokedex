@@ -1,0 +1,6 @@
+/** Adds a scrollbar to the page permanently 
+    Stops page from jankily shifting upon opening a Pokedex */
+html {
+  overflow: -moz-scrollbars-vertical;
+  overflow-y: scroll;
+}
