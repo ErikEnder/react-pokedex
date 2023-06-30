@@ -1,16 +1,9 @@
 /**
  * This Component will be the viewer for a selected Pokemon
  * 
- * TODO:
- * 1. Grab Pokemon from individual Region component and router.push it
- * 2. Figure out how to view it on new page
- * 3. Store Pokemon info in a Recoil atom
  * 
  * Features:
- *  1. Display Pokemon picture
  *  2. Display Pokemon base stats
- *  3. Display Pokemon evos (if any) / Unlikely given how API works
- *  4. Display Pokemon typings/abilities
  *  5. Display which games it appears in (if possible, unsure atm)
  */
 
@@ -21,8 +14,10 @@ import { useEffect } from "react";
 import { pokeAtom } from "src/state/pokemon-state";
 import { useRecoilState } from "recoil";
 import { PokemonDefinition } from "types";
-import { Typography } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { Typography, Container, Box } from "@mui/material";
+import { useLocation, Link } from "react-router-dom";
+
+import { capitalizeFirstLetter } from "src/helpers/helpers";
 
 const PokemonView = props => {
   const { state } = useLocation() // Information passed from individual region component regarding clicked Pokemon
@@ -47,19 +42,67 @@ const PokemonView = props => {
   const DisplayTypes = () =>
     pokemon?.types?.map((typing,index) => {
       return (
-        <div key={index}>
-          <span key={index}>Type {index + 1}: {typing.type.name}</span>
-        </div>
+        <span key={index}>
+          <Typography component="span" sx={{paddingLeft: '7px'}}><span> Type {index + 1}: {capitalizeFirstLetter(typing.type.name)}</span></Typography>
+        </span>
       )
     })
+
+    const DisplayAbilities = () =>
+      pokemon?.abilities?.map((ability,index) => {
+        return (
+          <div key={index}>
+            <Typography>
+              <span>
+                { ability.is_hidden ? `Hidden Ability: ${capitalizeFirstLetter(ability.ability.name)}` // Ternary Operator prints Hidden Ability if true, Ability 1/2/3 etc. if false
+                : `Ability ${index + 1}: ${capitalizeFirstLetter(ability.ability.name)}` }
+              </span>
+            </Typography>
+          </div>
+        )
+      })
+
+      const DisplayStats = () =>
+      pokemon?.stats?.map((stat,index) => {
+        return (
+          <div key={index}>
+            <Typography>
+              <span>{stat?.stat?.name}: </span>
+              <span>{stat.base_stat}</span>
+            </Typography>
+          </div>
+        )
+      })
     
 
   console.log(pokemon)
 
   return (
     <>
-      <p>Current Pokemon is: {pokemon?.species?.name}</p>
-      {DisplayTypes()}
+      <Link to="/">Return to Pokedex</Link>
+      <Container>
+        <br /><br />
+        <Typography>Current Pokemon is: {capitalizeFirstLetter(state.name)}</Typography>
+        <Container sx={{width: 'fit-content'}}>
+          <Container sx={{border: '1px solid black'}}>
+            <Container>
+              <Typography>Standard Sprites</Typography>
+            </Container>
+            <img src={pokemon?.sprites?.front_default} alt="Frontal Sprite" />
+            <img src={pokemon?.sprites?.back_default} alt="Back Sprite" />
+          </Container>
+          <Container sx={{border: '1px solid black'}}>
+            <Container>
+              <Typography>Shiny Sprites</Typography>
+            </Container>
+            <img src={pokemon?.sprites?.front_shiny} alt="Frontal Shiny Sprite" />
+            <img src={pokemon?.sprites?.back_shiny} alt="Back Shiny Sprite" />
+          </Container>
+          {DisplayTypes()}
+          {DisplayAbilities()}
+          {DisplayStats()}
+        </Container>
+      </Container>
     </>
   )
 }

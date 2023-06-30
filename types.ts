@@ -33,7 +33,7 @@ export type PokemonDefinition = {
     }
     is_hidden: boolean
   }]
-  sprites: [{
+  sprites: {
     back_default: string
     back_female: string
     back_shiny: string
@@ -42,13 +42,17 @@ export type PokemonDefinition = {
     front_female: string
     front_shiny: string
     front_shiny_female: string
-  }]
-  types: [
-    {
-      type: {
-        name: string
-      }
+  }
+  types: [{
+    type: {
+      name: string
     }
-  ]
+  }]
   held_items: string[]
+  stats: [{
+    base_stat: number
+    stat: {
+      name: string
+    }
+  }]
 }

@@ -37,7 +37,7 @@ export function sortPokemon(region: Region | undefined) {
 
 // Function for capitalizing the first letter of a Pokemon's/Type's name
 // Purely cosmetic
-function capitalizeFirstLetter(name: string) {
+export function capitalizeFirstLetter(name: string) {
   const capitalized = name.slice(0, 1).toUpperCase() + name.slice(1)
   if ( capitalized.includes("-") ) {
     return capitalizeAfterHyphen(capitalized)
