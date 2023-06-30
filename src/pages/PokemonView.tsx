@@ -9,7 +9,7 @@
  * Features:
  *  1. Display Pokemon picture
  *  2. Display Pokemon base stats
- *  3. Display Pokemon evos (if any)
+ *  3. Display Pokemon evos (if any) / Unlikely given how API works
  *  4. Display Pokemon typings/abilities
  *  5. Display which games it appears in (if possible, unsure atm)
  */
@@ -44,11 +44,22 @@ const PokemonView = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const DisplayTypes = () =>
+    pokemon?.types?.map((typing,index) => {
+      return (
+        <div key={index}>
+          <span>Type {index + 1}: {typing.type.name}</span>
+        </div>
+      )
+    })
+    
+
   console.log(pokemon)
 
   return (
     <>
       <p>Current Pokemon is: {pokemon?.species?.name}</p>
+      {DisplayTypes()}
     </>
   )
 }

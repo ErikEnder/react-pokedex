@@ -27,8 +27,11 @@ export type PokemonDefinition = {
   url: string
   id: number
   abilities: [{
-    abilityName: string
-    hidden: boolean
+    ability: {
+      name: string
+      url: string
+    }
+    is_hidden: boolean
   }]
   sprites: [{
     back_default: string
@@ -40,9 +43,12 @@ export type PokemonDefinition = {
     front_shiny: string
     front_shiny_female: string
   }]
-  typing: [{
-    typingOne: string
-    typingTwo: string
-  }]
+  types: [
+    {
+      type: {
+        name: string
+      }
+    }
+  ]
   held_items: string[]
 }

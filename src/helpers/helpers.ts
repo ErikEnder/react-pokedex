@@ -13,7 +13,7 @@ function getPokemonId(url: string) {
  * Region API does not automatically have them in order, 
  * leading to awkward display unless sorted.
  * 
- * Note: Could use Pokedex API call directly to avoid using this,
+ * Note: Discovered a way to use Pokedex API call directly to avoid using this,
  * but leaving it for educational purposes
  *  
 */ 
