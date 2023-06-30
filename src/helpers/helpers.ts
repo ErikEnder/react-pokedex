@@ -22,7 +22,7 @@ export function sortPokemon(region: Region | undefined) {
   // eslint-disable-next-line array-callback-return
   region?.pokemon_species?.map((species) => {
     const pokemonDefined: PokemonStorage = {
-      pokeName: capitalizePokeName(species.name),
+      pokeName: capitalizeFirstLetter(species.name),
       url: species.url,
       id: getPokemonId(species.url),
     };
@@ -35,9 +35,9 @@ export function sortPokemon(region: Region | undefined) {
   return sortedPokes;
 }
 
-// Function for capitalizing the first letter of a Pokemon's name
+// Function for capitalizing the first letter of a Pokemon's/Type's name
 // Purely cosmetic
-function capitalizePokeName(name: string) {
+function capitalizeFirstLetter(name: string) {
   const capitalized = name.slice(0, 1).toUpperCase() + name.slice(1)
   if ( capitalized.includes("-") ) {
     return capitalizeAfterHyphen(capitalized)

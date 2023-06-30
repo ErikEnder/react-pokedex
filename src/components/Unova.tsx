@@ -8,6 +8,7 @@ import { sortPokemon } from "src/helpers/helpers";
 import { Region } from "types";
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Link } from "react-router-dom";
 
 export default function UnovaDisplay() {
   const [unova, setUnova] = useRecoilState<Region | undefined>(unovaAtom);
@@ -38,7 +39,9 @@ export default function UnovaDisplay() {
     sortPokemon(unova).map((species, index) => {
       return (
         <div key={index}>
-          <a href={species.url}>{species.pokeName}</a>
+          <Link to="/pokemonview/" state={{ name: species.pokeName }}>
+            {species.pokeName}
+          </Link>
         </div>
       );
     });

@@ -48,7 +48,7 @@ const PokemonView = props => {
     pokemon?.types?.map((typing,index) => {
       return (
         <div key={index}>
-          <span>Type {index + 1}: {typing.type.name}</span>
+          <span key={index}>Type {index + 1}: {typing.type.name}</span>
         </div>
       )
     })

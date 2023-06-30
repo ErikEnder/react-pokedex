@@ -8,6 +8,7 @@ import { sortPokemon } from "src/helpers/helpers";
 import { Region } from "types";
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Link } from "react-router-dom";
 
 export default function HoennDisplay() {
   const [hoenn, setHoenn] = useRecoilState<Region | undefined>(hoennAtom);
@@ -38,7 +39,9 @@ export default function HoennDisplay() {
     sortPokemon(hoenn).map((species, index) => {
       return (
         <div key={index}>
-          <a href={species.url}>{species.pokeName}</a>
+          <Link to="/pokemonview/" state={{ name: species.pokeName }}>
+            {species.pokeName}
+          </Link>
         </div>
       );
     });
