@@ -17,11 +17,13 @@ import { PokemonDefinition } from "types";
 import { Typography, Container, Box } from "@mui/material";
 import { useLocation, Link } from "react-router-dom";
 
+import { DisplayType } from "src/helpers/displayType"
 import { capitalizeFirstLetter } from "src/helpers/helpers";
 
-const PokemonView = props => {
+export default function PokemonView() {
   const { state } = useLocation() // Information passed from individual region component regarding clicked Pokemon
   const [pokemon, setPokemon] = useRecoilState<PokemonDefinition | undefined>(pokeAtom);
+  let totalStats = 0
 
   useEffect(() => {
     const fetchPokemon = async () => {
@@ -42,9 +44,11 @@ const PokemonView = props => {
   const DisplayTypes = () =>
     pokemon?.types?.map((typing,index) => {
       return (
-        <span key={index}>
-          <Typography component="span" sx={{paddingLeft: '7px'}}><span> Type {index + 1}: {capitalizeFirstLetter(typing.type.name)}</span></Typography>
-        </span>
+        <Container sx={{display: 'flex', justifyContent: 'center'}}>
+          <span key={index}>
+            <Typography component="span"><span>Type {index + 1}: <img className="type-tag" src={DisplayType(typing.type.name)} alt={typing.type.name}/></span></Typography>
+          </span>
+        </Container>
       )
     })
 
@@ -63,48 +67,51 @@ const PokemonView = props => {
       })
 
       const DisplayStats = () =>
-      pokemon?.stats?.map((stat,index) => {
-        return (
-          <div key={index}>
-            <Typography>
-              <span>{stat?.stat?.name}: </span>
-              <span>{stat.base_stat}</span>
-            </Typography>
-          </div>
-        )
-      })
-    
-
-  console.log(pokemon)
+        pokemon?.stats?.map((stat,index) => {
+          totalStats += stat.base_stat
+          return (
+            <div key={index}>
+              <Typography>
+                <span>{capitalizeFirstLetter(stat?.stat?.name)}: </span>
+                <span>{stat.base_stat}</span>
+              </Typography>
+            </div>
+          )
+        })
 
   return (
     <>
-      <Link to="/">Return to Pokedex</Link>
       <Container>
-        <br /><br />
-        <Typography>Current Pokemon is: {capitalizeFirstLetter(state.name)}</Typography>
+        
         <Container sx={{width: 'fit-content'}}>
+          <Container sx={{display: 'flex', flexDirection: 'column', alignContent: 'center'}}>
+            <Typography sx={{margin: 'auto'}}><Link to="/">Return to Pokedex</Link></Typography>
+            <Typography sx={{margin: 'auto'}}>{capitalizeFirstLetter(state.name)}</Typography>
+          </Container>
           <Container sx={{border: '1px solid black'}}>
-            <Container>
+            <Container sx={{display: 'flex', justifyContent: 'center'}}>
               <Typography>Standard Sprites</Typography>
             </Container>
-            <img src={pokemon?.sprites?.front_default} alt="Frontal Sprite" />
-            <img src={pokemon?.sprites?.back_default} alt="Back Sprite" />
+            <img className="sprite" src={pokemon?.sprites?.front_default} alt="Frontal Sprite" />
+            <img className="sprite" src={pokemon?.sprites?.back_default} alt="Back Sprite" />
           </Container>
           <Container sx={{border: '1px solid black'}}>
-            <Container>
+            <Container sx={{display: 'flex', justifyContent: 'center'}}>
               <Typography>Shiny Sprites</Typography>
             </Container>
-            <img src={pokemon?.sprites?.front_shiny} alt="Frontal Shiny Sprite" />
-            <img src={pokemon?.sprites?.back_shiny} alt="Back Shiny Sprite" />
+            <img className="sprite" src={pokemon?.sprites?.front_shiny} alt="Frontal Shiny Sprite" />
+            <img className="sprite" src={pokemon?.sprites?.back_shiny} alt="Back Shiny Sprite" />
           </Container>
-          {DisplayTypes()}
-          {DisplayAbilities()}
-          {DisplayStats()}
+          <Container>
+            {DisplayTypes()}
+            {DisplayAbilities()}
+            {DisplayStats()}
+            <Typography>Total: {totalStats}</Typography>
+          </Container>
+          
         </Container>
       </Container>
     </>
+    
   )
 }
-
-export default PokemonView

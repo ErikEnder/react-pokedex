@@ -4,3 +4,12 @@ html {
   overflow: -moz-scrollbars-vertical;
   overflow-y: scroll;
 }
+
+.sprite {
+  width: 150px;
+}
+
+.type-tag {
+  width: 40px;
+  padding-top: 5px;
+}
