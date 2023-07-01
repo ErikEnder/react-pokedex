@@ -78,11 +78,65 @@ export default function PokemonView() {
             </div>
           )
         })
+      
+      /** Some Pokemon (namely in later generations after 3D Modeling became standard) are missing Back_Sprites.
+       * Due to this, the below method will check if the current Pokemon has a back Sprite. If not, it will only
+       * return the Front Sprite and center it appropriately. It is assumed that every Pokemon has at least a Front_Sprite.
+       */
+      function DisplaySprites() {
+        if (pokemon?.sprites?.back_default === null) {
+          return (
+            <Container sx={{display: 'flex', justifyContent: 'center'}}>
+              <img className="sprite" src={pokemon?.sprites?.front_default} alt="Frontal Sprite" />
+            </Container>
+            
+          )
+        }
+        else {
+          return (
+            <Container sx={{display: 'flex', justifyContent: 'center'}}>
+              <img className="sprite" src={pokemon?.sprites?.front_default} alt="Frontal Sprite" />
+              <img className="sprite" src={pokemon?.sprites?.back_default} alt="Back Sprite" />
+            </Container>
+          )
+        }
+      }
+
+      /**  Some Pokemon in the API are missing Shiny Sprites entirely, or in some cases
+       only missing Back Sprites. Method checks if Back_Sprite is missing first as that is the 
+       most likely to be gone in later generations, and if it is then check if any Shiny Sprites exist.
+       If they do, it will return the singular Sprite. If it's missing entirely, it informs the user as such. */
+      function DisplayShinySprites() {
+        if (pokemon?.sprites?.back_shiny === null) {
+          if (pokemon?.sprites?.front_shiny !== null) {
+            return (
+              <Container sx={{display: 'flex', justifyContent: 'center'}}>
+                <img className="sprite" src={pokemon?.sprites?.front_shiny} alt="Frontal Sprite" />
+              </Container>
+            )
+          }
+          else {
+            return (
+              <Typography>No Shiny Sprites on record</Typography>
+            )
+          }
+        }
+        else {
+          return (
+            <Container sx={{display: 'flex', justifyContent: 'center'}}>
+              <img className="sprite" src={pokemon?.sprites?.front_default} alt="Frontal Sprite" />
+              <img className="sprite" src={pokemon?.sprites?.back_default} alt="Back Sprite" />
+            </Container>
+          )
+        }
+      }
+
+
+        console.log(pokemon)
 
   return (
     <>
       <Container>
-        
         <Container sx={{width: 'fit-content'}}>
           <Container sx={{display: 'flex', flexDirection: 'column', alignContent: 'center'}}>
             <Typography sx={{margin: 'auto'}}><Link to="/">Return to Pokedex</Link></Typography>
@@ -90,17 +144,15 @@ export default function PokemonView() {
           </Container>
           <Container sx={{border: '1px solid black'}}>
             <Container sx={{display: 'flex', justifyContent: 'center'}}>
-              <Typography>Standard Sprites</Typography>
+              <Typography>Standard Sprite(s)</Typography>
             </Container>
-            <img className="sprite" src={pokemon?.sprites?.front_default} alt="Frontal Sprite" />
-            <img className="sprite" src={pokemon?.sprites?.back_default} alt="Back Sprite" />
+            {DisplaySprites()}
           </Container>
           <Container sx={{border: '1px solid black'}}>
             <Container sx={{display: 'flex', justifyContent: 'center'}}>
-              <Typography>Shiny Sprites</Typography>
+              <Typography>Shiny Sprite(s)</Typography>
             </Container>
-            <img className="sprite" src={pokemon?.sprites?.front_shiny} alt="Frontal Shiny Sprite" />
-            <img className="sprite" src={pokemon?.sprites?.back_shiny} alt="Back Shiny Sprite" />
+            {DisplayShinySprites()}
           </Container>
           <Container>
             {DisplayTypes()}
@@ -108,7 +160,6 @@ export default function PokemonView() {
             {DisplayStats()}
             <Typography>Total: {totalStats}</Typography>
           </Container>
-          
         </Container>
       </Container>
     </>
