@@ -14,7 +14,7 @@ import { useEffect } from "react";
 import { pokeAtom } from "src/state/pokemon-state";
 import { useRecoilState } from "recoil";
 import { PokemonDefinition } from "types";
-import { Typography, Container, Box } from "@mui/material";
+import { Typography, Container } from "@mui/material";
 import { useLocation, Link } from "react-router-dom";
 
 import { DisplayType } from "src/helpers/displayType"
@@ -124,37 +124,35 @@ export default function PokemonView() {
         else {
           return (
             <Container sx={{display: 'flex', justifyContent: 'center'}}>
-              <img className="sprite" src={pokemon?.sprites?.front_default} alt="Frontal Sprite" />
-              <img className="sprite" src={pokemon?.sprites?.back_default} alt="Back Sprite" />
+              <img className="sprite" src={pokemon?.sprites?.front_shiny} alt="Frontal Sprite" />
+              <img className="sprite" src={pokemon?.sprites?.back_shiny} alt="Back Sprite" />
             </Container>
           )
         }
       }
 
-
-        console.log(pokemon)
-
   return (
     <>
-      <Container>
+      <div className='header' />
+      <Container sx={{paddingTop: '40px'}}>
         <Container sx={{width: 'fit-content'}}>
           <Container sx={{display: 'flex', flexDirection: 'column', alignContent: 'center'}}>
-            <Typography sx={{margin: 'auto'}}><Link to="/">Return to Pokedex</Link></Typography>
+            <Typography sx={{margin: 'auto'}}><Link to="/">Return to Pokedex</Link></Typography><br />
             <Typography sx={{margin: 'auto'}}>{capitalizeFirstLetter(state.name)}</Typography>
           </Container>
-          <Container sx={{border: '1px solid black'}}>
+          <Container sx={{border: '1px solid black', backgroundColor: '#f5f5f5', paddingTop: '10px'}}>
             <Container sx={{display: 'flex', justifyContent: 'center'}}>
               <Typography>Standard Sprite(s)</Typography>
             </Container>
             {DisplaySprites()}
           </Container>
-          <Container sx={{border: '1px solid black'}}>
+          <Container sx={{border: '1px solid black', backgroundColor: '#f5f5f5', paddingTop: '10px'}}>
             <Container sx={{display: 'flex', justifyContent: 'center'}}>
               <Typography>Shiny Sprite(s)</Typography>
             </Container>
             {DisplayShinySprites()}
           </Container>
-          <Container>
+          <Container sx={{border: '1px solid black', backgroundColor: '#f5f5f5', paddingTop: '10px', paddingBottom: '10px'}}>
             {DisplayTypes()}
             {DisplayAbilities()}
             {DisplayStats()}
@@ -162,6 +160,7 @@ export default function PokemonView() {
           </Container>
         </Container>
       </Container>
+      <div className='footer' />
     </>
     
   )

@@ -39,6 +39,7 @@ export default function AlolaDisplay() {
     sortPokemon(alola).map((species, index) => {
       return (
         <div key={index}>
+          <span>{species.id}. </span>
           <Link to="/pokemonview/" state={{ name: species.pokeName }}>
             {species.pokeName}
           </Link>
